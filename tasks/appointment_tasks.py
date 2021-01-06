@@ -12,6 +12,7 @@ from external_appointment_update_summary_struct import ExternalAppointmentUpdate
 from external_appointment_struct import ExternalAppointmentStructSchema
 import common
 import json
+from prefect.triggers import manual_only
 
 
 
@@ -46,7 +47,7 @@ def extract_nodes(input_file_path: str) -> List[ExternalAppointmentStruct]:
   return appointments
 
 
-@task
+@task(trigger=manual_only)
 def build_graphs(nodes: List[ExternalAppointmentStruct]) -> List[ExternalAppointmentStruct]:
   logger = prefect.context.get("logger")
   logger.info("building graphs")
