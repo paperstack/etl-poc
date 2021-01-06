@@ -32,5 +32,5 @@ class ExternalAppointmentUpdateSummaryStructSchema(Schema):
   details = fields.List(fields.Str(), allow_none=True)
 
   @post_load
-  def make_adt_update_summary_struct(self, data):
+  def make_external_appointment_summary_struct(self, data, *args, **kwargs):
     return ExternalAppointmentUpdateSummaryStruct(**data)

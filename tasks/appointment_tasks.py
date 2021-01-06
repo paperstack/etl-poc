@@ -70,8 +70,21 @@ def post_graph(appointment: ExternalAppointmentStruct) -> Dict:
                                          '/api/external_appointment/update',
                                          external_appointment_update_schema,
                                          commit=False)
-  logger.info(json.dumps(summary))
-
+  
   return summary
+
+@task(result=PrefectResult())
+def aggregate_summaries(summaries: List[ExternalAppointmentUpdateSummaryStruct]) -> Dict:
+  logger = prefect.context.get("logger")
+  result = ExternalAppointmentUpdateSummaryStruct()
+  for summary in summaries:
+    result.num_new_appointments += summary.num_new_appointments
+    result.num_valid_appointments += summary.num_valid_appointments
+    result.num_existing_appointments += summary.num_existing_appointments
+    result.num_dropped_appointments += summary.num_dropped_appointments
+    result.details.extend(summary.details)
+  
+  return ExternalAppointmentUpdateSummaryStructSchema().dump(result)
+
 
 

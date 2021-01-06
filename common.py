@@ -222,9 +222,7 @@ def post_to_endpoint_with_patient_struct(
   success = response['success']
   if not success:
     return None, response['errors'], return_patient_struct
-  else:
-    return response['update_summary'], [], return_patient_struct
-
+  
   errors = None
   summary = summary_schema.load(response['update_summary'])
   if errors:
