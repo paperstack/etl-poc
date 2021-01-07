@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields, post_load, validate
 from typing import Set
+from address_struct import AddressStruct, AddressStructSchema
 
-from sfe.api_data.address_struct import AddressStruct, AddressStructSchema
 
 
 class OfficeStruct:
