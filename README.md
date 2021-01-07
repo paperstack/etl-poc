@@ -23,3 +23,9 @@ When starting the prefect agent this project must be on it's PYTHONPATH. To do t
 ```
 prefect agent start --import-path /path/to/this/project -f
 ```
+
+The Appointments flow currently takes in two config params:
+
+ge_ctx_root: Absolute path to Great Expectations suite (should be /path/to/repo/great_expectations)
+
+input_file_path: Absolute path to external appointment data

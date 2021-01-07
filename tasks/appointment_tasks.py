@@ -13,14 +13,14 @@ from external_appointment_struct import ExternalAppointmentStructSchema
 import common
 import json
 from prefect.triggers import manual_only
+from pandas.core.frame import DataFrame
 
 
 
 @task
-def extract_nodes(input_file_path: str) -> List[ExternalAppointmentStruct]:
+def extract_data_frame(input_file_path: str) -> DataFrame:
   logger = prefect.context.get("logger")
   logger.info("extracting nodes")
-  appointments = []
   mapping = StLukesEtlAppointmentMapping()
   df = common_io.read_csv_fast(input_file_path,
                                columns=mapping.columns(),
@@ -29,7 +29,16 @@ def extract_nodes(input_file_path: str) -> List[ExternalAppointmentStruct]:
                                             mapping.date_of_birth,
                                             mapping.external_created_date,
                                             mapping.external_last_modified_date])
+  return df
 
+
+
+
+@task
+def extract_nodes(df: DataFrame) -> List[ExternalAppointmentStruct]:
+  mapping = StLukesEtlAppointmentMapping()
+  appointments = []
+  
   for i in df.index:
     row = df.loc[i]
 

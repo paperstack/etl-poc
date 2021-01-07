@@ -1,0 +1,57 @@
+{
+  "data_asset_type": "Dataset",
+  "expectation_suite_name": "STLUKES_DEV_6K_APPTS.warning",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "max_value": 6600,
+        "min_value": 5400
+      },
+      "meta": {
+        "BasicSuiteBuilderProfiler": {
+          "confidence": "very low"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "BasicSuiteBuilderProfiler": {
+      "batch_kwargs": {
+        "data_asset_name": "STLUKES_DEV_6K_APPTS",
+        "datasource": "appts",
+        "path": "/Users/alex/development/projects/appt_gen/STLUKES_DEV_6K_APPTS.csv"
+      },
+      "created_at": 1609991144.8028312,
+      "created_by": "BasicSuiteBuilderProfiler"
+    },
+    "citations": [
+      {
+        "batch_kwargs": {
+          "data_asset_name": "STLUKES_DEV_6K_APPTS",
+          "datasource": "appts",
+          "path": "/Users/alex/development/projects/appt_gen/STLUKES_DEV_6K_APPTS.csv"
+        },
+        "batch_markers": {
+          "ge_load_time": "20210107T034544.731028Z",
+          "pandas_data_fingerprint": "59165091032c3a38d7805f6b85493d33"
+        },
+        "batch_parameters": null,
+        "citation_date": "20210107T034544.825383Z",
+        "comment": "BasicSuiteBuilderProfiler added a citation based on the current batch."
+      }
+    ],
+    "columns": {
+      "EDWPatientID|Patient_MRN|Patient_First_Name|Patient_Last_Name|Appointment_ID|Appointment_Date|Appointment_Time|Appointment_Cancel_Date|Appointment_Cancel_Reason|Same_Day_Cancel_Flag|Appt_Made_Same_Day_Flag|Appointment_Type|Appointment_LocationID|Appointment_LocationDSC|Scheduled_Provider_NPI|Scheduled_Provider_Name|Appointment_Status|Appointment_lastmodifieddate|Appointment_createddate|Associated_Payer_Hierachy|Gender|DOB": {
+        "description": ""
+      }
+    },
+    "great_expectations_version": "0.13.3",
+    "notes": {
+      "content": [
+        "#### This is an _example_ suite\n\n- This suite was made by quickly glancing at 1000 rows of your data.\n- This is **not a production suite**. It is meant to show examples of expectations.\n- Because this suite was auto-generated using a very basic profiler that does not know your data like you do, many of the expectations may not be meaningful.\n"
+      ],
+      "format": "markdown"
+    }
+  }
+}
