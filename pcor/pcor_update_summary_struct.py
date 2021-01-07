@@ -3,9 +3,9 @@ from typing import List, DefaultDict
 
 from marshmallow import fields, Schema, post_load
 
-from sfe.api_data.pcor.pcor_measure_summary import PcorMeasureSummaryStruct, \
+from pcor.pcor_measure_summary import PcorMeasureSummaryStruct, \
   PcorMeasureSummaryStructSchema
-from sfe.api_data.stellar_network_change_struct import \
+from stellar_network_change_struct import \
   StellarNetworkChangeStruct, StellarNetworkChangeStructSchema
 
 
