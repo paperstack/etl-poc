@@ -4,7 +4,7 @@ from collections import defaultdict
 
 from marshmallow import fields, Schema, post_load
 
-from sfe.api_data.stellar_network_change_struct import \
+from stellar_network_change_struct import \
   StellarNetworkChangeStruct, StellarNetworkChangeStructSchema
 
 

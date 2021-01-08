@@ -1,3 +1,6 @@
 /.project
 /.pydevproject
 **/__pycache__/**
+.python-version
+.idea
+dask-worker-space

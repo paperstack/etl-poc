@@ -1,6 +1,9 @@
+import paramiko
 from prefect import task, context
 from typing import List, Dict
 import prefect
+from prefect.engine import signals
+
 from tasks.external_appointment_struct import ExternalAppointmentStruct
 from prefect.engine.results.prefect_result import PrefectResult
 from stlukes_mappings import StLukesEtlAppointmentMapping
@@ -16,22 +19,54 @@ from prefect.triggers import manual_only
 from pandas.core.frame import DataFrame
 
 
-
 @task
-def extract_data_frame(input_file_path: str) -> DataFrame:
+def extract_data_frame(
+        input_file_path: str,
+        sftp_password,
+        sftp_file_path,
+) -> DataFrame:
   logger = prefect.context.get("logger")
   logger.info("extracting nodes")
   mapping = StLukesEtlAppointmentMapping()
-  df = common_io.read_csv_fast(input_file_path,
-                               columns=mapping.columns(),
-                               sep='|',
-                               parse_dates=[mapping.appointment_date,
-                                            mapping.date_of_birth,
-                                            mapping.external_created_date,
-                                            mapping.external_last_modified_date])
+
+  if sftp_file_path:
+    logger.info(f'Reading file from SFTP: {sftp_file_path}')
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(
+      hostname='elb-shared-us-east-1-doit-13794.aptible.in',
+      port=22,
+      username='aptible',
+      password=sftp_password,
+    )
+    sftp_client = ssh_client.open_sftp()
+    with sftp_client.file(sftp_file_path) as f:
+      df = common_io.read_csv_fast(
+        f,
+        columns=mapping.columns(),
+        sep='|',
+        parse_dates=[
+          mapping.appointment_date,
+          mapping.date_of_birth,
+          mapping.external_created_date,
+          mapping.external_last_modified_date,
+        ],
+      )
+  else:
+    logger.info(f'Reading file from local file system: {input_file_path}')
+    df = common_io.read_csv_fast(
+      input_file_path,
+      columns=mapping.columns(),
+      sep='|',
+      parse_dates=[
+        mapping.appointment_date,
+        mapping.date_of_birth,
+        mapping.external_created_date,
+        mapping.external_last_modified_date,
+      ],
+    )
+
   return df
-
-
 
 
 @task
@@ -55,8 +90,7 @@ def extract_nodes(df: DataFrame) -> List[ExternalAppointmentStruct]:
 
   return appointments
 
-
-@task(trigger=manual_only)
+@task
 def build_graphs(nodes: List[ExternalAppointmentStruct]) -> List[ExternalAppointmentStruct]:
   logger = prefect.context.get("logger")
   logger.info("building graphs")
@@ -80,7 +114,10 @@ def post_graph(appointment: ExternalAppointmentStruct) -> Dict:
                                          '/api/external_appointment/update',
                                          external_appointment_update_schema,
                                          commit=False)
-  
+
+  if err:
+    raise signals.FAIL(message=str(err))
+
   return summary
 
 @task(result=PrefectResult())

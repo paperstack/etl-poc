@@ -3,7 +3,7 @@ from typing import Optional
 
 from marshmallow import Schema, fields, post_load, validate
 
-from sfe.api_data.drug_struct import DrugStruct, DrugStructSchema
+from drug_struct import DrugStruct, DrugStructSchema
 
 
 class DrugFillStruct:
