@@ -13,4 +13,4 @@ ADD . /app
 
 EXPOSE 8080
 
-CMD prefect agent local start --api https://api.prefect.io --token Go-8i0PtDRX-PYH24Gz92Q 
+CMD prefect agent local start --api https://api.prefect.io --token Go-8i0PtDRX-PYH24Gz92Q  --agent-address 0.0.0.0:8080 --name aptible-dev  --label st_lukes
