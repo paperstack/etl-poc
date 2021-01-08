@@ -11,6 +11,6 @@ RUN pip install -r requirements.txt
 
 ADD . /app
 
-EXPOSE 8080
+# EXPOSE 8080
 
-CMD prefect server start --postgres-port 5433
+CMD prefect agent local start --api https://api.prefect.io --token Go-8i0PtDRX-PYH24Gz92Q 
