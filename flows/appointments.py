@@ -9,6 +9,7 @@ from prefect.engine.signals import VALIDATIONFAIL, FAIL
 from prefect.triggers import manual_only
 from prefect.environments.execution.local import LocalEnvironment
 from prefect.run_configs.base import UniversalRun
+from prefect.environments.storage.github import GitHub
 
 log = utilities.logging.get_logger()
 validation_task = RunGreatExpectationsValidation()
@@ -33,5 +34,6 @@ with Flow("St. Lukes Appointments ETL") as flow:
   
 #flow.run()
 flow.run_config = UniversalRun(labels=["st_lukes"])
+flow.storage = GitHub(repo="stellarhealth/etl-pushtrain-poco", path="/flows/appointments.py")
 flow.register(project_name="PoC")
 #flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")
