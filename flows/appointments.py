@@ -8,6 +8,7 @@ from prefect.tasks.great_expectations.checkpoints import RunGreatExpectationsVal
 from prefect.engine.signals import VALIDATIONFAIL, FAIL
 from prefect.triggers import manual_only
 from prefect.environments.execution.local import LocalEnvironment
+from prefect.run_configs.base import UniversalRun
 
 log = utilities.logging.get_logger()
 validation_task = RunGreatExpectationsValidation()
@@ -31,6 +32,6 @@ with Flow("St. Lukes Appointments ETL") as flow:
   aggregate_summaries(post_summaries)
   
 #flow.run()
-flow.environment = LocalEnvironment(labels=["st_lukes"])
+flow.run_config = UniversalRun(labels=["st_lukes"])
 flow.register(project_name="PoC")
 #flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")

@@ -13,4 +13,4 @@ ADD . /Users/alex
 
 EXPOSE 8080
 
-CMD prefect agent local start --api https://api.prefect.io --token Go-8i0PtDRX-PYH24Gz92Q --agent-address http://localhost:8080 --name aptible-dev  --label st_lukes
+CMD prefect agent local start --api https://api.prefect.io --token Go-8i0PtDRX-PYH24Gz92Q --agent-address http://localhost:8080 --name aptible-dev  --label st_lukes --import-path /Users/alex

@@ -120,7 +120,7 @@ def post_graph(appointment: ExternalAppointmentStruct) -> Dict:
 
   return summary
 
-@task(result=PrefectResult())
+@task()
 def aggregate_summaries(summaries: List[ExternalAppointmentUpdateSummaryStruct]) -> Dict:
   logger = prefect.context.get("logger")
   result = ExternalAppointmentUpdateSummaryStruct()
