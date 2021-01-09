@@ -103,6 +103,7 @@ def build_graphs(nodes: List[ExternalAppointmentStruct]) -> List[ExternalAppoint
 @task
 def post_graph(appointment: ExternalAppointmentStruct) -> Dict:
   logger = prefect.context.get("logger")
+  logger.info(f"Starting post_graph")
   s = ExternalAppointmentUpdateSummaryStruct()
   external_appointment_schema = ExternalAppointmentStructSchema()
   external_appointment_update_schema = ExternalAppointmentUpdateSummaryStructSchema()
@@ -110,11 +111,12 @@ def post_graph(appointment: ExternalAppointmentStruct) -> Dict:
   json_data = external_appointment_schema.dump(appointment)
   
   summary: ExternalAppointmentUpdateSummaryStruct
+  logger.info(f"About to post")
   summary, err = common.post_to_endpoint(1, json_data,
                                          '/api/external_appointment/update',
                                          external_appointment_update_schema,
                                          commit=False)
-
+  logger.info(f"Finished posting")
   if err:
     raise signals.FAIL(message=str(err))
 
