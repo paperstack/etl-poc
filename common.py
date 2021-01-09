@@ -204,7 +204,7 @@ def post_to_endpoint_with_patient_struct(
   """
   #from django.conf import settings
 
-  err, content = requests_post("https://dev.stellar.health" + update_path, json_dict={
+  err, content = requests_post("https://app-9097.on-aptible.com" + update_path, json_dict={
     'json_data': json_data,
     'commit': commit,
     'data_set_id': data_set_id,
