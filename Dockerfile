@@ -5,11 +5,11 @@ RUN apt-get update \
  && apt-get -y install build-essential libpq-dev \
  && rm -rf /var/lib/apt/lists/*
 
-ADD requirements.txt /app/
-WORKDIR /Users/alex
+ADD requirements.txt /Users/alex/
+WORKDIR /Users/alex/
 RUN pip install -r requirements.txt
 
-ADD . /app
+ADD . /Users/alex
 
 EXPOSE 8080
 
