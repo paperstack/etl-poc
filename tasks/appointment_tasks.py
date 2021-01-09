@@ -4,7 +4,7 @@ from typing import List, Dict
 import prefect
 from prefect.engine import signals
 
-from tasks.external_appointment_struct import ExternalAppointmentStruct
+from external_appointment_struct import ExternalAppointmentStruct
 from prefect.engine.results.prefect_result import PrefectResult
 from stlukes_mappings import StLukesEtlAppointmentMapping
 import common_io
