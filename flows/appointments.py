@@ -10,6 +10,7 @@ from prefect.triggers import manual_only
 from prefect.environments.execution.local import LocalEnvironment
 from prefect.run_configs.base import UniversalRun
 from prefect.environments.storage.github import GitHub
+from prefect.storage.docker import Docker
 
 log = utilities.logging.get_logger()
 validation_task = RunGreatExpectationsValidation()
@@ -34,6 +35,12 @@ with Flow("St. Lukes Appointments ETL") as flow:
   
 #flow.run()
 flow.run_config = UniversalRun(labels=["st_lukes"])
-flow.storage = GitHub(repo="stellarhealth/etl-pushtrain-poco", path="/flows/appointments.py")
+#flow.storage = Docker("stellaralex", files={"/Users/alex/development/projects/prefect_etl": "modules/prefect_etl"}, env_vars={"PYTHONPATH": "$PYTHONPATH:modules/prefect_etl"},
+#                     python_dependencies=["pandas", "paramiko"])
+flow.storage = GitHub(
+    repo="paperstack/etl-poc",                 # name of repo
+    path="flows/appointments.py"
+)
+
 flow.register(project_name="PoC")
 #flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")

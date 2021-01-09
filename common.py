@@ -1,7 +1,5 @@
-import inspect
 import json
 from collections import defaultdict
-import time
 from typing import List, Optional, Any, Tuple, Union, Set, Dict, DefaultDict
 from datetime import datetime
 
@@ -9,8 +7,6 @@ import marshmallow
 import pandas as pd
 import requests
 
-from tenacity import retry
-from tenacity.wait import wait_random_exponential
 from patient_struct import PatientStruct
 from pcor.pcor_patient_struct import PcorPatientStruct
 import etl_err
@@ -140,7 +136,6 @@ def _get_etl_class(etl_name: str) -> Any:
 # ------------------------------------------------------------------------
 # Methods for posting to the SFE api.
 
-@retry(wait=wait_random_exponential(multiplier=0.5, min=1, max=8))  # seconds
 def _requests_post_rate_adapt(sfe_url, json_dict: dict):
   r = requests.post(sfe_url, json=json_dict, timeout=120)
   if r.status_code == 429:  # Too Many Requests
@@ -209,7 +204,7 @@ def post_to_endpoint_with_patient_struct(
   """
   #from django.conf import settings
 
-  err, content = requests_post("http://localhost:8000" + update_path, json_dict={
+  err, content = requests_post("elb-shared-us-east-1-doit-12686.aptible.in" + update_path, json_dict={
     'json_data': json_data,
     'commit': commit,
     'data_set_id': data_set_id,
