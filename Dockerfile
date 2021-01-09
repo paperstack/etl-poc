@@ -6,7 +6,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 ADD requirements.txt /app/
-WORKDIR /app
+WORKDIR /Users/alex
 RUN pip install -r requirements.txt
 
 ADD . /app

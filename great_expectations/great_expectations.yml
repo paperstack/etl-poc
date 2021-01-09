@@ -22,7 +22,7 @@ datasources:
     batch_kwargs_generators:
       subdir_reader:
         class_name: SubdirReaderBatchKwargsGenerator
-        base_directory: /Users/alex/development/projects/appt_gen/
+        base_directory: /app/appt_gen/
     module_name: great_expectations.datasource
 
 # This config file supports variable substitution which enables: 1) keeping

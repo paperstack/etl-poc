@@ -20,7 +20,7 @@
       "batch_kwargs": {
         "data_asset_name": "STLUKES_DEV_6K_APPTS",
         "datasource": "appts",
-        "path": "/Users/alex/development/projects/appt_gen/STLUKES_DEV_6K_APPTS.csv"
+        "path": "/app/STLUKES_DEV_6K_APPTS.csv"
       },
       "created_at": 1609991144.8028312,
       "created_by": "BasicSuiteBuilderProfiler"
@@ -30,7 +30,7 @@
         "batch_kwargs": {
           "data_asset_name": "STLUKES_DEV_6K_APPTS",
           "datasource": "appts",
-          "path": "/Users/alex/development/projects/appt_gen/STLUKES_DEV_6K_APPTS.csv"
+          "path": "/app/STLUKES_DEV_6K_APPTS.csv"
         },
         "batch_markers": {
           "ge_load_time": "20210107T034544.731028Z",

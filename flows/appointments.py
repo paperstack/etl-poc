@@ -33,4 +33,4 @@ with Flow("St. Lukes Appointments ETL") as flow:
 #flow.run()
 flow.environment = LocalEnvironment(labels=["st_lukes"])
 flow.register(project_name="PoC")
-flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")
+#flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")
