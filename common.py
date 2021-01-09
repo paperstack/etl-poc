@@ -10,6 +10,7 @@ import requests
 from patient_struct import PatientStruct
 from pcor.pcor_patient_struct import PcorPatientStruct
 import etl_err
+import prefect
 
 
 
@@ -203,7 +204,8 @@ def post_to_endpoint_with_patient_struct(
       the SummaryStruct to be None. Third returned value is a patient struct.
   """
   #from django.conf import settings
-
+  logger = prefect.context.get("logger")
+  logger.info(f"Trying to post to https://app-9097.on-aptible.com")
   err, content = requests_post("https://app-9097.on-aptible.com" + update_path, json_dict={
     'json_data': json_data,
     'commit': commit,
