@@ -36,7 +36,7 @@ class ExternalAppointmentStruct:
     self.gender: str = gender
     self.date_of_birth = date_of_birth
     self.appointment_date: date = appointment_date
-    self.appointment_time: time = appointment_time
+    self.appointment_time: time = appointment_time.isoformat()
     self.appointment_type: str = appointment_type.lower()
     self.scheduled_provider_npi: str = scheduled_provider_npi
     self.appointment_status: str = appointment_status.lower()
@@ -91,7 +91,7 @@ class ExternalAppointmentStructSchema(Schema):
   medical_member_number = fields.Str(required=False, allow_none=True, validate=validate.Length(max=200))
   external_appointment_id = fields.Str(required=False, allow_none=True, validate=validate.Length(max=200))
   appointment_location_id = fields.Str(required=False, allow_none=True, validate=validate.Length(max=20))
-  external_last_modified_date = fields.Time(required=False, allow_none=True)
+  external_last_modified_date = fields.Str(required=False, allow_none=True)
   external_created_date = fields.Date(required=False, allow_none=True)
   plan_id = fields.Int(required=True)
   extra_data = fields.Dict(required=False, allow_none=True)

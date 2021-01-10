@@ -36,7 +36,7 @@ class ExternalAppointmentStruct:
     self.gender: str = gender
     self.date_of_birth = date_of_birth
     self.appointment_date: date = appointment_date
-    self.appointment_time: time = appointment_time
+    self.appointment_time: time = appointment_time.isoformat()
     self.appointment_type: str = appointment_type.lower()
     self.scheduled_provider_npi: str = scheduled_provider_npi
     self.appointment_status: str = appointment_status.lower()

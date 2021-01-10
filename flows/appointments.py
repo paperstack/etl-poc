@@ -19,8 +19,8 @@ with Flow("St. Lukes Appointments ETL") as flow:
   input_file_path = Parameter("input_file_path", default="/app/St_Lukes_Sample_Appointments_20201207.txt")
   ge_ctx_root = Parameter("ge_ctx_root", default="/app/great_expectations")
 
-  sftp_password = Parameter('sftp_password')
-  sftp_file_path = Parameter('sftp_file_path')
+  sftp_password = Parameter('sftp_password', default=None)
+  sftp_file_path = Parameter('sftp_file_path', default=None)
 
   df = extract_data_frame(input_file_path, sftp_password, sftp_file_path)
   validation_task(
