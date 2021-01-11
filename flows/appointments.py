@@ -37,15 +37,16 @@ with Flow("St. Lukes Appointments ETL") as flow:
   post_summaries = post_graph.map(graphs)
   aggregate_summaries(post_summaries)
   
-#flow.run()
+#flow.run() # Debugging
 flow.run_config = UniversalRun(labels=["st_lukes"])
 #flow.storage = Docker("stellaralex", files={"/Users/alex/development/projects/prefect_etl": "modules/prefect_etl"}, env_vars={"PYTHONPATH": "$PYTHONPATH:modules/prefect_etl"},
 #                     python_dependencies=["pandas", "paramiko"])
+
 flow.storage = GitHub(
     repo="paperstack/etl-poc",                 # name of repo
     path="flows/appointments.py"
 )
 
-flow.executor = LocalDaskExecutor()
+flow.executor = LocalDaskExecutor() # Runs local Dask cluster
 flow.register(project_name="PoC")
-#flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")
+#flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q") # Starts an agent that connects to our cloud
