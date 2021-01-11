@@ -19,7 +19,7 @@ with Flow("St. Lukes Appointments ETL") as flow:
   #input_file_path = Parameter("input_file_path", default="/Users/alex/development/projects/prefect_etl/St_Lukes_Sample_Appointments_20201207.txt")
   #ge_ctx_root = Parameter("ge_ctx_root", default="/Users/alex/development/projects/prefect_etl/great_expectations")
 
-  input_file_path = Parameter("input_file_path", default="/app/St_Lukes_Sample_Appointments_20201207.txt")
+  input_file_path = Parameter("input_file_path", default="/app/10.txt")
   ge_ctx_root = Parameter("ge_ctx_root", default="/app/great_expectations")
 
   sftp_password = Parameter('sftp_password', default=None)
@@ -36,7 +36,7 @@ with Flow("St. Lukes Appointments ETL") as flow:
   post_summaries = post_graph.map(graphs)
   aggregate_summaries(post_summaries)
   
-#flow.run()
+flow.run()
 flow.run_config = UniversalRun(labels=["st_lukes"])
 #flow.storage = Docker("stellaralex", files={"/Users/alex/development/projects/prefect_etl": "modules/prefect_etl"}, env_vars={"PYTHONPATH": "$PYTHONPATH:modules/prefect_etl"},
 #                     python_dependencies=["pandas", "paramiko"])
@@ -45,5 +45,5 @@ flow.storage = GitHub(
     path="flows/appointments.py"
 )
 
-flow.register(project_name="PoC")
+#flow.register(project_name="PoC")
 #flow.run_agent(token="Go-8i0PtDRX-PYH24Gz92Q")
